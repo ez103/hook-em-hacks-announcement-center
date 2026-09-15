@@ -70,7 +70,12 @@
         </section>
 
         <section class="feed" aria-labelledby="feed-title">
-          <div class="feed-heading"><h2 id="feed-title">Announcements <span id="announcement-count">0</span></h2><span class="sort-label">Newest first</span></div>
+          <div class="feed-heading">
+            <h2 id="feed-title">Announcements <span id="announcement-count" aria-live="polite">0 unread</span></h2>
+            <select id="category-filter" aria-label="Filter announcements by category">
+              <option value="">All categories</option>
+            </select>
+          </div>
           <div id="announcements"></div>
           <div class="empty-state panel" id="empty-state">
             <p>No announcements yet.</p>

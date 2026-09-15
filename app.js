@@ -1,4 +1,7 @@
 const STORAGE_KEY = "hook-em-hacks-announcements-v1";
+const READ_STORAGE_KEY = "hook-em-hacks-read-v1";
+const categoryFilter = document.querySelector("#category-filter");
+let readIds = new Set();
 const form = document.querySelector("#announcement-form");
 const titleInput = document.querySelector("#announcement-title");
 const messageInput = document.querySelector("#announcement-message");
@@ -32,13 +35,60 @@ function loadAnnouncements() {
   }
 }
 
+function loadReadStatus() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(READ_STORAGE_KEY) || "[]");
+    if (!Array.isArray(saved) || !saved.every(id => typeof id === "string")) throw new Error("Invalid read status");
+    readIds = new Set(saved);
+  } catch {
+    status.textContent = "Saved read status couldn’t be loaded. Check your browser storage.";
+  }
+}
+
+function toggleRead(announcement) {
+  const next = new Set(readIds);
+  if (next.has(announcement.id)) next.delete(announcement.id);
+  else next.add(announcement.id);
+  try {
+    localStorage.setItem(READ_STORAGE_KEY, JSON.stringify([...next]));
+  } catch {
+    status.textContent = "Read status couldn’t be saved. Please check your browser storage and try again.";
+    return;
+  }
+  readIds = next;
+  renderAnnouncements();
+  // Restore keyboard focus after replacing the feed.
+  const buttons = document.querySelectorAll("[data-read-id]");
+  [...buttons].find(button => button.dataset.readId === announcement.id)?.focus();
+}
+
+function renderCategoryFilter() {
+  const selected = categoryFilter.value;
+  const categories = [...new Set(["Logistics", "Workshops", "Food", "General", ...announcements.map(item => item.category)])];
+  categoryFilter.replaceChildren();
+  for (const category of ["", ...categories]) {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category || "All categories";
+    categoryFilter.append(option);
+  }
+  categoryFilter.value = categories.includes(selected) ? selected : "";
+  categoryFilter.hidden = isOrganizer;
+}
+
+categoryFilter.addEventListener("change", renderAnnouncements);
+
 function renderAnnouncements() {
+  renderCategoryFilter();
   const feed = document.querySelector("#announcements");
   feed.replaceChildren();
-  const sorted = [...announcements].sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
+  const visible = announcements.filter(item => isOrganizer || !categoryFilter.value || item.category === categoryFilter.value);
+  const sorted = [...visible].sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
   for (const announcement of sorted) {
     const article = document.createElement("article");
     article.className = "announcement panel";
+    const isRead = readIds.has(announcement.id);
+    if (!isOrganizer) article.classList.add(isRead ? "is-read" : "is-unread");
     const time = document.createElement("time");
     time.dateTime = announcement.createdAt;
     time.textContent = new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" }).format(new Date(announcement.createdAt));
@@ -55,9 +105,12 @@ function renderAnnouncements() {
     category.textContent = announcement.category;
     const priority = document.createElement("span");
     priority.className = `announcement-badge priority-${announcement.priority.toLowerCase()}`;
-    priority.textContent = announcement.priority;
+    priority.textContent = `Priority Level: ${announcement.priority}`;
     metadata.append(category, priority);
-    article.append(time, metadata, title, message);
+    const header = document.createElement("div");
+    header.className = "announcement-header";
+    header.append(time, metadata);
+    article.append(header, title, message);
     if (isOrganizer) {
       const actions = document.createElement("div");
       actions.className = "announcement-actions";
@@ -75,11 +128,31 @@ function renderAnnouncements() {
       remove.addEventListener("click", () => deleteAnnouncement(announcement));
       actions.append(edit, remove);
       article.append(actions);
+    } else {
+      const actions = document.createElement("div");
+      actions.className = "announcement-actions read-actions";
+      const readLabel = document.createElement("span");
+      readLabel.className = "read-status";
+      readLabel.textContent = isRead ? "Read" : "Unread";
+      const toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "secondary-button";
+      toggle.dataset.readId = announcement.id;
+      toggle.textContent = isRead ? "Mark as unread" : "Mark as read";
+      toggle.setAttribute("aria-label", `${toggle.textContent}: ${announcement.title}`);
+      toggle.addEventListener("click", () => toggleRead(announcement));
+      actions.append(readLabel, toggle);
+      header.append(actions);
     }
     feed.append(article);
   }
-  document.querySelector("#announcement-count").textContent = announcements.length;
-  document.querySelector("#empty-state").hidden = announcements.length > 0;
+  const unreadCount = announcements.filter(item => !readIds.has(item.id)).length;
+  document.querySelector("#announcement-count").hidden = isOrganizer;
+  document.querySelector("#announcement-count").textContent = `${unreadCount} unread`;
+  document.querySelector("#announcement-count").title = "Unread announcements across all categories";
+  document.querySelector("#empty-state").hidden = visible.length > 0;
+  document.querySelector("#empty-state p").textContent = announcements.length && !isOrganizer && categoryFilter.value
+    ? "No announcements in this category." : "No announcements yet.";
 }
 
 document.querySelectorAll("[data-view]").forEach(button => {
@@ -197,9 +270,14 @@ window.addEventListener("storage", event => {
     loadAnnouncements();
     renderAnnouncements();
   }
+  if (event.key === READ_STORAGE_KEY || event.key === null) {
+    loadReadStatus();
+    renderAnnouncements();
+  }
 });
 
 loadAnnouncements();
+loadReadStatus();
 renderAnnouncements();
 
 // Animate while scrolling, then let the dog rest when scrolling stops.

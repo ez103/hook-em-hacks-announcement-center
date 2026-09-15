@@ -7,6 +7,9 @@ This project was built with assistance from Codex.
 - Next, I adjusted the visual design of the website (I made it look less ugly), with different fonts and some added graphics.
 - Then I (we) added added the selections for category and priority for organizers to be able to make. I decided to also allow for the organizers to make a custom category by selected "other" and then typing in a custom category name. 
 - I made the tags look less ugly and be color-coded.
+- I implemented the filtering function for the hackers, and added the read/unread markers.
+- I also slightly redesigned the layout for the announcement posts.
+- I made the toggle more visible and added a slight animation to it.
 
 September 2026
 
