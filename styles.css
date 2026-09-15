@@ -9,9 +9,9 @@
 }
 * { box-sizing: border-box; }
 body { margin: 0; background-image: radial-gradient(circle, #aa48161c 1px, transparent 1px); background-size: 24px 24px; }
-button, input, textarea { font: inherit; }
+button, input, textarea, select { font: inherit; }
 button { cursor: pointer; }
-button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
+button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 3px solid #ca7346; outline-offset: 4px; }
 [hidden] { display: none !important; }
 .site-header { max-width: 1200px; margin: auto; padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border-bottom: 1px solid var(--border); }
@@ -49,11 +49,17 @@ h1 { font-size: clamp(26px, 4vw, 38px); letter-spacing: -.8px; line-height: 1.2;
 h2 { font-size: 19px; letter-spacing: -.5px; margin: 0; }
 .composer { padding: 28px; }
 label { display: block; font-size: 12px; font-weight: 650; margin: 18px 0 8px; }
-input, textarea { width: 100%; padding: 12px 13px; border: 1px solid #d9d6cd; border-radius: 7px; background: #fdfcfb; color: inherit; font-size: 14px; line-height: 1.5; }
+input, textarea, select { width: 100%; padding: 12px 13px; border: 1px solid #d9d6cd; border-radius: 7px; background: #fdfcfb; color: inherit; font-size: 14px; line-height: 1.5; }
+select { min-height: 46px; cursor: pointer; }
 textarea { resize: vertical; min-height: 120px; }
 input::placeholder, textarea::placeholder { color: #918b80; }
 .post-button { display: flex; justify-content: space-between; width: 100%; margin-top: 20px; border: 0; border-radius: 7px; padding: 13px 16px; background: var(--accent); color: white; font-size: 13px; font-weight: 600; }
 .post-button:hover { background: #8e3b11; }
+.announcement-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.secondary-button { border: 1px solid #d9d6cd; border-radius: 7px; padding: 10px 14px; min-height: 44px; background: #fdfcfb; color: inherit; font-size: 13px; }
+.secondary-button:hover { background: #f0eee8; }
+.delete-button { color: #a02e20; }
+#cancel-edit { width: 100%; margin-top: 8px; }
 .feed { min-width: 0; }
 .feed-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
 #announcement-count { display: inline-block; vertical-align: middle; margin-left: 7px; padding: 3px 7px; border-radius: 5px; font-size: 11px; background: #eeece5; color: var(--muted); }
@@ -62,6 +68,16 @@ input::placeholder, textarea::placeholder { color: #918b80; }
 .empty-state p { max-width: 300px; margin: auto; font-size: 13px; color: var(--muted); line-height: 1.7; }
 .announcement { padding: 25px 28px; margin-bottom: 14px; overflow-wrap: anywhere; }
 .announcement time { font-size: 11px; color: var(--muted); }
+.announcement-metadata { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.announcement-badge { padding: 4px 9px; border: 2px solid currentColor; border-radius: 6px; background: #f0eee8; color: #5e5a51; font-family: "Arial Rounded MT Bold", ui-rounded, "Trebuchet MS", sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .2px; line-height: 1.5; }
+.category-logistics { background: #e2edff; color: #28549a; }
+.category-workshops { background: #efe5ff; color: #70439a; }
+.category-food { background: #ffe8d5; color: #984818; }
+.category-general { background: #def2f2; color: #256b70; }
+.category-custom { background: #f9e2ee; color: #963d69; }
+.priority-normal { background: #e1f2e3; color: #326b3d; }
+.priority-important { background: #fff0cc; color: #795000; }
+.priority-urgent { background: #fce2dc; color: #a02e20; font-weight: 700; }
 .announcement h3 { font-size: 18px; margin: 12px 0 9px; letter-spacing: -.3px; }
 .announcement p { white-space: pre-wrap; color: #5e5a51; font-size: 14px; line-height: 1.75; margin: 0; }
 .status { color: var(--accent); font-size: 13px; line-height: 1.6; }

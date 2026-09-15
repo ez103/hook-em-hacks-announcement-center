@@ -45,7 +45,26 @@
             <input id="announcement-title" name="title" placeholder="What’s the update?" maxlength="120" required>
             <label for="announcement-message">Message</label>
             <textarea id="announcement-message" name="message" placeholder="Share the details here…" rows="6" maxlength="5000" required></textarea>
+            <label for="announcement-category">Category</label>
+            <select id="announcement-category" name="category" required>
+              <option value="Logistics">Logistics</option>
+              <option value="Workshops">Workshops</option>
+              <option value="Food">Food</option>
+              <option value="General" selected>General</option>
+              <option value="Other">Other</option>
+            </select>
+            <div id="custom-category-field" hidden>
+              <label for="custom-category">Custom category</label>
+              <input id="custom-category" name="customCategory" placeholder="Enter a category" maxlength="60" disabled>
+            </div>
+            <label for="announcement-priority">Priority</label>
+            <select id="announcement-priority" name="priority" required>
+              <option value="Normal">Normal</option>
+              <option value="Important">Important</option>
+              <option value="Urgent">Urgent</option>
+            </select>
             <button class="post-button" type="submit">Post announcement <span aria-hidden="true">↗</span></button>
+            <button class="secondary-button" id="cancel-edit" type="button" hidden>Cancel edit</button>
           </form>
           <p id="post-status" class="status" role="status" aria-live="polite"></p>
         </section>
