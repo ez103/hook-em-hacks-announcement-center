@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hook 'Em Hacks · Announcements</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html"><img class="brand-logo" src="assets/longhorn-sunglasses.svg" alt="" width="64" height="48"><span>Hook 'Em Hacks</span></a>
+      <div class="view-switch" role="group" aria-label="Choose your view">
+        <button type="button" data-view="hacker" aria-pressed="true">Hacker</button>
+        <button type="button" data-view="organizer" aria-pressed="false">Organizer</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <h1 id="page-title">Announcement Center</h1>
+        <svg class="intro-art" viewBox="0 0 300 210" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="166" cy="108" r="80" fill="#f4bb74"/>
+          <ellipse cx="162" cy="115" rx="124" ry="47" transform="rotate(-26 162 115)" fill="none" stroke="#aa4816" stroke-width="1.5" stroke-dasharray="5 7"/>
+          <g transform="rotate(-14 151 110)" stroke="#382e27" stroke-width="4" stroke-linejoin="round">
+            <path d="M123 124 L144 174 Q150 184 162 176 L171 170 L153 117" fill="#aa4816"/>
+            <path d="M75 89 H116 L211 53 V143 L116 120 H75Z" fill="#fffaf0"/>
+            <path d="M116 89 V120 H75 V89Z" fill="#cf622d"/>
+            <ellipse cx="211" cy="98" rx="17" ry="45" fill="#e8874b"/>
+            <ellipse cx="211" cy="98" rx="7" ry="23" fill="#382e27" stroke="none"/>
+            <path d="M65 95 V113" stroke-linecap="round"/>
+          </g>
+          <g stroke="#aa4816" stroke-width="4" stroke-linecap="round"><path d="M247 57 L265 48 M255 79 L277 79 M244 100 L262 110"/></g>
+          <path d="M59 30 L64 43 L78 48 L64 53 L59 67 L54 53 L40 48 L54 43Z" fill="#aa4816"/>
+          <g transform="translate(30 148) rotate(9)"><rect width="70" height="39" rx="10" fill="#382e27"/><path d="M23 12 L15 20 L23 28 M47 12 L55 20 L47 28 M38 10 L32 30" fill="none" stroke="#fff1d9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
+          <circle cx="253" cy="160" r="6" fill="#aa4816"/>
+        </svg>
+      </section>
+
+      <div class="content-layout" id="content-layout">
+        <section class="composer panel" id="organizer-panel" aria-labelledby="composer-title" hidden>
+          <h2 id="composer-title">New announcement</h2>
+          <form id="announcement-form">
+            <label for="announcement-title">Title</label>
+            <input id="announcement-title" name="title" placeholder="What’s the update?" maxlength="120" required>
+            <label for="announcement-message">Message</label>
+            <textarea id="announcement-message" name="message" placeholder="Share the details here…" rows="6" maxlength="5000" required></textarea>
+            <button class="post-button" type="submit">Post announcement <span aria-hidden="true">↗</span></button>
+          </form>
+          <p id="post-status" class="status" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="feed" aria-labelledby="feed-title">
+          <div class="feed-heading"><h2 id="feed-title">Announcements <span id="announcement-count">0</span></h2><span class="sort-label">Newest first</span></div>
+          <div id="announcements"></div>
+          <div class="empty-state panel" id="empty-state">
+            <p>No announcements yet.</p>
+          </div>
+        </section>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <div class="coding-dog" aria-hidden="true">
+        <svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg" focusable="false">
+          <ellipse cx="180" cy="232" rx="138" ry="12" fill="#eae4d9"/>
+          <circle cx="180" cy="133" r="103" fill="#f2ede3"/>
+          <g stroke="#694731" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <path class="dog-tail" d="M245 198 Q309 208 289 157 Q279 140 273 158 Q284 186 249 176" fill="#c58c56"/>
+            <path d="M121 217 Q109 145 178 141 Q250 144 250 217Z" fill="#c58c56"/>
+            <path d="M153 214 Q145 160 179 159 Q215 161 216 214" fill="#f9e5c5" stroke="none"/>
+            <g class="dog-head">
+              <path d="M126 70 Q89 49 92 101 Q91 137 116 135 L139 94 M222 70 Q259 49 256 101 Q257 137 232 135 L209 94" fill="#8e5839"/>
+              <path d="M116 88 Q116 48 174 48 Q234 48 234 93 L231 116 Q224 155 174 155 Q123 155 117 116Z" fill="#d9a66d"/>
+              <path d="M164 51 Q155 80 163 112 L188 112 Q196 81 184 51" fill="#f9e5c5" stroke="none"/>
+              <ellipse cx="175" cy="123" rx="33" ry="24" fill="#f9e5c5" stroke="none"/>
+              <path d="M165 114 Q175 108 185 114 Q181 125 175 125 Q169 125 165 114" fill="#49362c"/>
+              <path d="M175 126 L175 131 M161 132 Q168 140 175 132 Q182 140 189 132" fill="none"/>
+              <g fill="#fff9ed" fill-opacity=".65">
+                <rect x="126" y="86" width="39" height="28" rx="11"/>
+                <rect x="185" y="86" width="39" height="28" rx="11"/>
+              </g>
+              <path d="M165 96 Q175 90 185 96" fill="none"/>
+              <g fill="#49362c" stroke="none"><ellipse cx="147" cy="100" rx="4" ry="6"/><ellipse cx="202" cy="100" rx="4" ry="6"/></g>
+            </g>
+            <path class="dog-paw dog-paw-left" d="M127 170 Q141 165 156 186 Q161 201 145 201 Q126 197 121 186" fill="#d9a66d"/>
+            <path class="dog-paw dog-paw-right" d="M223 170 Q209 165 194 186 Q189 201 205 201 Q224 197 229 186" fill="#d9a66d"/>
+            <path d="M113 180 H237 L227 226 H123Z" fill="#e2ddd4"/>
+            <path d="M103 226 H247 L239 234 H111Z" fill="#c8bfb1"/>
+            <g stroke="#aa4816" fill="none" stroke-width="3"><path d="M162 197 L155 203 L162 209 M188 197 L195 203 L188 209 M179 195 L171 211"/></g>
+          </g>
+          <g class="dog-code" fill="none" stroke="#aa4816" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M67 113 L58 121 L67 129 M83 113 L92 121 L83 129 M299 77 L290 85 L299 93 M315 77 L324 85 L315 93"/>
+          </g>
+        </svg>
+      </div>
+    </main>
+
+    <footer><a class="brand footer-brand" href="index.html"><img class="brand-logo" src="assets/longhorn-sunglasses.svg" alt="" width="48" height="36"><span>Hook 'Em Hacks</span></a><span class="university">The University of Texas at Austin</span></footer>
+  </body>
+</html>

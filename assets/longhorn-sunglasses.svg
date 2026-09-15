@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90" fill="none">
+  <title>Longhorn wearing sunglasses</title>
+  <g stroke="#873b18" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M44 32C21 35 9 25 4 9C3 34 17 47 43 43M76 32C99 35 111 25 116 9C117 34 103 47 77 43" fill="#f4dfbb"/>
+    <path d="M44 38L28 35L34 49L45 50M76 38L92 35L86 49L75 50" fill="#c56a34"/>
+    <path d="M42 31Q60 22 78 31L75 56L69 76Q60 85 51 76L45 56Z" fill="#bd5b29"/>
+    <path d="M56 29L53 54L60 61L67 54L64 29" fill="#f8e8cb" stroke="none"/>
+    <ellipse cx="60" cy="72" rx="12" ry="9" fill="#e8b887"/>
+  </g>
+  <g fill="#282720" stroke="#282720" stroke-width="3" stroke-linejoin="round">
+    <path d="M40 41H57L55 52Q48 58 43 51Z M63 41H80L77 51Q72 58 65 52Z"/>
+    <path d="M57 44Q60 42 63 44" fill="none"/>
+  </g>
+  <path d="M45 44L50 49M68 44L73 49" stroke="#fff5df" stroke-width="2" stroke-linecap="round"/>
+  <g fill="#873b18"><ellipse cx="55" cy="72" rx="2" ry="2.5"/><ellipse cx="65" cy="72" rx="2" ry="2.5"/></g>
+</svg>
