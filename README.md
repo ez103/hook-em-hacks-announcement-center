@@ -4,7 +4,7 @@
 
 This is a simple website built by Eric Zhang for Hook 'Em Hacks, where the hackathon organizers can post announcements that can be seen by participants.
 
-This project was built with assistance from Codex. This is what I (we) did:
+This project was built with assistance from Codex, used as a VSCode extension. This is what I (we) did:
 - First, the basic toggles for Hackers and Organizers were created.
 - Next, I adjusted the visual design of the website (I made it look less ugly), with different fonts and some added graphics.
 - Then I added added the selections for category and priority for organizers to be able to make. I decided to also allow for the organizers to make a custom category by selected "other" and then typing in a custom category name. 
