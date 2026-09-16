@@ -13,6 +13,7 @@ This project was built with assistance from Codex. This is what I (we) did:
 - I also slightly redesigned the layout for the announcement posts.
 - I made the toggle more visible and added a slight animation to it.
 - Then, I wrote and added 5 sample announcements. These load if there is nothing stored in local storage yet.
+
 The workflow involved many iterations (which are described generally above) of prompting, testing and evaluating the code, and refining.
 
 September 2026
