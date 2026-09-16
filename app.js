@@ -1,5 +1,48 @@
 const STORAGE_KEY = "hook-em-hacks-announcements-v1";
 const READ_STORAGE_KEY = "hook-em-hacks-read-v1";
+// Demo posts in chronological order; the feed displays newest first.
+const SAMPLE_ANNOUNCEMENTS = [
+  {
+    id: "sample-jane-street",
+    title: "Jane Street Tabling Information",
+    message: "One of our sponsors, Jane Street, will be tabling this Saturday near the room 1.067 at the Gates-Dell Complex (GDC) building. Come to meet recruiters, learn about their company, and grab some swag!",
+    category: "General",
+    priority: "Normal",
+    createdAt: "2023-01-20T10:00:00-06:00"
+  },
+  {
+    id: "sample-registration",
+    title: "Registration Reminder",
+    message: "Please remember to complete the following forms for each member of your team:\n\n1. Liability waiver (sign and email)\n2. Photo release waiver (sign and email)\n3. Hacker information form (Google Form)\n\nThis is due next Friday, January 27 at 11:59 p.m.!",
+    category: "Logistics",
+    priority: "Important",
+    createdAt: "2023-01-21T09:00:00-06:00"
+  },
+  {
+    id: "sample-evacuation",
+    title: "DANGER NOTIFICATION: Evacuate the GDC Now",
+    message: "Part of the 6th floor of the GDC has collapsed due to a major water leak, and the building is slowly crumbling as the water spreads. Please evacuate the building NOW. If you are trapped in the 6th floor, hold tight and do not make major movements. Rescue operations are underway and emergency workers will come take you out to safety.",
+    category: "Logistics",
+    priority: "Urgent",
+    createdAt: "2023-01-28T14:00:00-06:00"
+  },
+  {
+    id: "sample-donuts",
+    title: "Free Donuts on Speedway",
+    message: "We are excited to be giving out free donuts in front of the Gregory Gym on speedway! Make sure to submit your feedback form to be able to claim this donut for yourself.",
+    category: "Food",
+    priority: "Normal",
+    createdAt: "2023-01-29T10:00:00-06:00"
+  },
+  {
+    id: "sample-results",
+    title: "Hackathon Results Update",
+    message: "We will be delaying the release of our Hackathon results by 3 days. Simply put, our judges are overwhelmed by all the impressive projects y'all built, and they need more time to evaluate and sort out placings. Please watch your email for the new YouTube live link that we will post shortly.",
+    category: "General",
+    priority: "Important",
+    createdAt: "2023-01-30T15:00:00-06:00"
+  }
+];
 const categoryFilter = document.querySelector("#category-filter");
 let readIds = new Set();
 const form = document.querySelector("#announcement-form");
@@ -18,7 +61,9 @@ const cancelEdit = document.querySelector("#cancel-edit");
 
 function loadAnnouncements() {
   try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    const stored = localStorage.getItem(STORAGE_KEY);
+    // Seed only a new browser store. An empty saved array means posts were deleted.
+    const saved = stored === null ? SAMPLE_ANNOUNCEMENTS : JSON.parse(stored);
     if (!Array.isArray(saved) || !saved.every(item =>
       item && typeof item.title === "string" && typeof item.message === "string" &&
       typeof item.createdAt === "string" && Number.isFinite(Date.parse(item.createdAt))
@@ -30,6 +75,13 @@ function loadAnnouncements() {
       category: typeof item.category === "string" && item.category.trim() ? item.category.trim() : "General",
       priority: priorities.includes(item.priority) ? item.priority : "Normal"
     }));
+    if (stored === null) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(announcements));
+      } catch {
+        status.textContent = "Sample announcements are displayed, but couldn’t be saved. Check your browser storage.";
+      }
+    }
   } catch {
     status.textContent = "Saved announcements couldn’t be loaded. Check that browser storage is available before posting.";
   }
